@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NAM Survey Webhook Payload",
+  "description": "Privacy-preserving summary payload sent when a survey is submitted",
+  "type": "object",
+  "required": [
+    "submissionId",
+    "timestamp",
+    "submissionCount",
+    "overallRating",
+    "adminUrl"
+  ],
+  "properties": {
+    "submissionId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this survey submission",
+      "example": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the survey was submitted",
+      "example": "2025-12-06T19:30:45.123Z"
+    },
+    "submissionCount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Total number of submissions received (this is the Nth response)",
+      "example": 42
+    },
+    "overallRating": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Q1 overall conference rating (1-5) if provided, otherwise null",
+      "example": 4
+    },
+    "adminUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view full submission details in the admin dashboard (requires authorization)",
+      "example": "http://localhost:3000/admin?submission=550e8400-e29b-41d4-a716-446655440000"
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "submissionId": "a1b2c3d4-e5f6-4789-a012-b3c4d5e6f7a8",
+      "timestamp": "2025-12-06T19:30:45.123Z",
+      "submissionCount": 1,
+      "overallRating": 5,
+      "adminUrl": "http://localhost:3000/admin?submission=a1b2c3d4-e5f6-4789-a012-b3c4d5e6f7a8"
+    },
+    {
+      "submissionId": "f1e2d3c4-b5a6-4897-a210-c3b4e5d6f7g8",
+      "timestamp": "2025-12-06T20:15:22.456Z",
+      "submissionCount": 42,
+      "overallRating": null,
+      "adminUrl": "http://localhost:3000/admin?submission=f1e2d3c4-b5a6-4897-a210-c3b4e5d6f7g8"
+    }
+  ]
+}

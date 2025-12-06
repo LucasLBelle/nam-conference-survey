@@ -3,13 +3,17 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { CreateSurveyResponseDto } from './dto/create-survey-response.dto';
 import { SurveyResponseDto } from './dto/survey-response.dto';
 import { Role, Status } from '@prisma/client';
+import { WebhookService } from '../webhook/webhook.service';
 
 @Injectable()
 export class SurveyService {
   private readonly logger = new Logger(SurveyService.name);
   private readonly ANONYMOUS_EMAIL = 'anonymous@survey.local';
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly webhookService: WebhookService,
+  ) {}
 
   /**
    * Get or create the anonymous user for survey submissions
@@ -129,6 +133,16 @@ export class SurveyService {
 
     // Log submission (without PII)
     this.logger.log(`Survey submitted: ${result.id}`);
+
+    // Dispatch webhook asynchronously (don't block response)
+    this.webhookService
+      .handleSurveySubmission(result.id, dto.q1OverallRating ?? null)
+      .catch((error) => {
+        this.logger.error(
+          `Webhook dispatch failed for submission ${result.id}`,
+          error instanceof Error ? error.stack : String(error),
+        );
+      });
 
     // Return response DTO
     return new SurveyResponseDto(
