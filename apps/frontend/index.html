@@ -8,6 +8,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+      // Prevent FOUC by reading cookie and setting color scheme before render
+      (function() {
+        try {
+          var cookieName = 'nam-survey-color-scheme';
+          var cookies = document.cookie.split('; ');
+          var schemeCookie = cookies.find(function(row) { return row.startsWith(cookieName + '='); });
+          var scheme = schemeCookie ? schemeCookie.split('=')[1] : null;
+
+          // If no cookie, detect system preference
+          if (!scheme) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              scheme = 'dark';
+            } else {
+              scheme = 'light';
+            }
+          }
+
+          document.documentElement.setAttribute('data-mantine-color-scheme', scheme);
+        } catch (e) {
+          // Fallback to light mode if any error
+          document.documentElement.setAttribute('data-mantine-color-scheme', 'light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

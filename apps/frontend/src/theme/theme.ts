@@ -42,6 +42,19 @@ export const theme: MantineThemeOverride = createTheme({
       '#121415', // 8
       '#090a0a', // 9
     ],
+    // Dark mode color palette
+    dark: [
+      '#C1C2C5', // 0 - text
+      '#A6A7AB', // 1 - dimmed text
+      '#909296', // 2 - borders
+      '#5c5f66', // 3 - placeholder
+      '#373A40', // 4 - hover
+      '#2C2E33', // 5 - inputs
+      '#25262b', // 6 - cards
+      '#1A1B1E', // 7 - app background
+      '#141517', // 8 - darker
+      '#101113', // 9 - darkest
+    ],
   },
 
   // Typography

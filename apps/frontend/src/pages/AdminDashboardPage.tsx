@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Container, Stack, Title, SimpleGrid, Alert, Image } from '@mantine/core';
+import { Container, Stack, Title, SimpleGrid, Alert, Image, Group } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { MetricCard } from '../components/MetricCard';
 import { RecentResponsesSection } from '../components/RecentResponsesSection';
+import { ThemeToggle } from '../components/ThemeToggle';
 import { getAdminMetrics, getAdminRecentResponses } from '../api/admin';
 import { AdminMetricsResponse, AdminRecentResponsesResponse } from '../types/admin';
 
@@ -40,6 +41,11 @@ export default function AdminDashboardPage() {
   return (
     <Container size="lg" py="xl">
       <Stack gap="xl">
+        {/* Theme Toggle */}
+        <Group justify="flex-end">
+          <ThemeToggle />
+        </Group>
+
         {/* Header with Logo */}
         <Stack gap="md" align="center">
           <Image
