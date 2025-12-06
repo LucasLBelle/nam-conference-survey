@@ -1,0 +1,45 @@
+# Node modules (installed in container)
+**/node_modules
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Build outputs
+**/dist
+**/build
+
+# Environment files (use Docker environment instead)
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Logs
+**/logs
+**/*.log
+**/npm-debug.log*
+**/pnpm-debug.log*
+
+# Test coverage
+**/coverage
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (not needed in container)
+*.md
+!README.md
+
+# Product/planning files (not needed in container)
+product/
+prompts/
+templates/
+rules/
+knowledge/
